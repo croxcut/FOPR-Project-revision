@@ -34,16 +34,29 @@ void draw_container(int x, int y, int w, int h) {
     printf("+");
 }
 
+void draw_menu(int x, int y, char *items[], int count, int selected) {
+    for (int i = 0; i < count; i++) {
+        gotoxy(x, y + i);
+        if (i == selected) {
+            set_color(0, 15);
+            printf(" > %s ", items[i]);
+            set_color(15, 0);
+        } else {
+            printf("   %s ", items[i]);
+        }
+    }
+}
+
 void draw_textfield(int x, int y, int w, char *buffer) {
     draw_container(x, y, w, 3);
     gotoxy(x+1, y+1);
-    set_color(0, 15);
+    // set_color(0, 15);
     printf("%-*.*s", w-2, w-2, buffer);
     gotoxy(x+1, y+1);
-    set_color(15, 0);
+    // set_color(15, 0);
 }
 
-void textfield_input(int x, int y, int w, char *buffer, int max_len) {
+void textfield_input(int x, int y, int max_len, char *buffer) {
     int pos = 0;
     buffer[0] = '\0';
     while (1) {
@@ -54,36 +67,73 @@ void textfield_input(int x, int y, int w, char *buffer, int max_len) {
             if (pos > 0) {
                 pos--;
                 buffer[pos] = '\0';
-                draw_textfield(x, y, w, buffer);
+                draw_textfield(x, y, max_len, buffer);
             }
         } else if (ch >= 32 && ch <= 126) {
-            if (pos < max_len-1 && pos < w-3) {
+            if (pos < max_len-1 && pos < max_len-3) {
                 buffer[pos++] = ch;
                 buffer[pos] = '\0';
-                draw_textfield(x, y, w, buffer);
+                draw_textfield(x, y, max_len, buffer);
             }
         }
     }
 }
 
-int main(int argc, char* argv) {
-    system("cls");
-
-    int w = 20;
-    int h = 30;    
-    int x = 10;
-    int y = 0;
-    draw_container(x, y, w, h);
-    char name[256];
-    int input;
-    bool field = false;
+int menu_input(int x, int y, char *items[], int count) {
+    int selected = 0;
+    int ch;
 
     while (1) {
-        gotoxy(x + 2, y + 2);
-        printf("[]");
-        if (input == 0 || input == 224) {
-            input = _getch();  
+        draw_menu(x, y, items, count, selected);
+
+        ch = _getch();
+        if (ch == 224) ch = _getch(); 
+
+        if (ch == UP) {
+            if (selected > 0) selected--;
+        } else if (ch == DOWN) {
+            if (selected < count - 1) selected++;
+        } else if (ch == ENTER) {
+            return selected;
+        }
+    }
+}
+
+int w = 70; 
+int h = 20;    
+int x = 20;
+int y = 0;
+
+int main(int argc, char* argv[]) {
+    system("cls");
+
+    draw_container(x, y, w, h);
+
+    char name[256];
+    int field_length = 50;
+
+    char *menu_items[] = {
+        "Input Mo Mama mo",
+        "Exit"
+    };
+
+    while (1) {
+        int choice = menu_input(x + 3, y + 3, menu_items, 2);
+
+        if (choice == 0) {
+            draw_textfield(x + 2, y + 8, field_length, "");
+            textfield_input(x + 2, y + 8, field_length, name);
+
+            gotoxy(x + 2, y + 12);
+            printf("Prompt?: %s :D*", name);
+
+            name[0] = '\0';
+            draw_textfield(x + 2, y + 8, field_length, "");
+        }
+        else if (choice == 1) {
+            break;
         }
     }
 
+    return 0;
 }

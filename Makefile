@@ -15,9 +15,12 @@ $(TARGET): $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-run: all
-	start cmd /k "$(TARGET).exe"
+# run: all
+# 	start cmd /k "$(TARGET).exe"
 	
+run: all
+	.\$(TARGET).exe
+
 clean:
 	rm -f $(OBJ) $(TARGET)
 
