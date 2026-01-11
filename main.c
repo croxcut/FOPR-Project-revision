@@ -56,6 +56,7 @@ void draw_textfield(int x, int y, int w, char *buffer) {
     // set_color(15, 0);
 }
 
+// Textfield input
 void textfield_input(int x, int y, int max_len, char *buffer) {
     int pos = 0;
     buffer[0] = '\0';
@@ -79,6 +80,7 @@ void textfield_input(int x, int y, int max_len, char *buffer) {
     }
 }
 
+// Menu Input
 int menu_input(int x, int y, char *items[], int count) {
     int selected = 0;
     int ch;
@@ -99,6 +101,7 @@ int menu_input(int x, int y, char *items[], int count) {
     }
 }
 
+// Window Shit
 int w = 70; 
 int h = 20;    
 int x = 20;
@@ -114,7 +117,7 @@ int main(int argc, char* argv[]) {
 
     char *menu_items[] = {
         "Input Mo Mama mo",
-        "Exit"
+        "Exit",
     };
 
     while (1) {
