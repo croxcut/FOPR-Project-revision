@@ -56,6 +56,7 @@ void draw_textfield(int x, int y, int w, char *buffer) {
     // set_color(15, 0);
 }
 
+// FUCKING FIX THIS SHIT
 // Textfield input
 void textfield_input(int x, int y, int max_len, char *buffer) {
     int pos = 0;
