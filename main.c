@@ -47,6 +47,7 @@ void draw_menu(int x, int y, char *items[], int count, int selected) {
     }
 }
 
+// draw text field (with x & y offset)
 void draw_textfield(int x, int y, int w, char *buffer) {
     draw_container(x, y, w, 3);
     gotoxy(x+1, y+1);
