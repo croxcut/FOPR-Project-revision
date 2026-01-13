@@ -34,6 +34,7 @@ void draw_container(int x, int y, int w, int h) {
     printf("+");
 }
 
+// Draw Menu (with x & y offset) load the items (options) and display
 void draw_menu(int x, int y, char *items[], int count, int selected) {
     for (int i = 0; i < count; i++) {
         gotoxy(x, y + i);
