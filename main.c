@@ -113,6 +113,8 @@ int y = 0;
 int main(int argc, char* argv[]) {
     system("cls");
 
+    // This shouldn't even exist
+    // FUCKING CUNT
     draw_container(x, y, w, h);
 
     char name[256];
