@@ -126,8 +126,10 @@ int main(int argc, char* argv[]) {
     };
 
     while (1) {
+        // this is the menu input fuck
         int choice = menu_input(x + 3, y + 3, menu_items, 2);
 
+        // If selected do display this shit
         if (choice == 0) {
             draw_textfield(x + 2, y + 8, field_length, "");
             textfield_input(x + 2, y + 8, field_length, name);
